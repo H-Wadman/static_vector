@@ -2,12 +2,10 @@
 #include <format>
 #include <initializer_list>
 #include <iterator>
-#include <limits>
 #include <stdexcept>
 
 namespace hw
 {
-
 
 using hw_size = long long;
 
@@ -84,6 +82,10 @@ class static_vector
     void pop_back() { --m_size; }
 
     [[nodiscard]] constexpr bool empty() { return m_size == 0; }
+
+    [[nodiscard]] constexpr T* begin() { return m_data.begin(); }
+
+    [[nodiscard]] constexpr T* end() { return std::next(begin(), m_size); }
 };
 
 template <typename T, typename... U>

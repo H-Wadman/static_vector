@@ -1,7 +1,9 @@
+//NOLINTBEGIN
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "../static_vector.hpp"
 #include <array>
 #include <doctest.h>
+#include <stdexcept>
 
 TEST_CASE("Constructor")
 {
@@ -10,6 +12,15 @@ TEST_CASE("Constructor")
 
     //Test with template argument deduction
     hw::static_vector test_inferred_cap{1, 2, 3};
+
+    //Test of initializer list with different capacity and init_list size
+    hw::static_vector<int, 5> test_sz_diff{1, 2, 3}; //NOLINT
+    CHECK_EQ(test_sz_diff.cap(), 5);
+    CHECK_EQ(test_sz_diff.size(), 3);
+
+    //Test of invalid initializations
+    REQUIRE_THROWS_AS((hw::static_vector<int, 3>{1, 2, 3, 4}),
+                      std::invalid_argument);
 }
 
 TEST_CASE("Size and capacity")
@@ -40,3 +51,5 @@ TEST_CASE("Element initialization")
         CHECK_EQ(test1.at(i), test2.at(i));
     }
 }
+
+//NOLINTEND
