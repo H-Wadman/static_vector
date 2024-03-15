@@ -29,6 +29,7 @@ TEST_CASE("at")
 {
     hw::static_vector<int, 5> at_test{1, 2, 3};
 
+    //To satisfy nodiscard constraints
     [[maybe_unused]] int _{};
     for (int i{0}; i < 3; ++i) { REQUIRE_NOTHROW(_ = at_test.at(i)); }
 
